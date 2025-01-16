@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Webpage</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            font-family: Arial, sans-serif;
+            background-color: #ebe3db;
+            color: #3a2d28;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: #a48374;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            z-index: 1000;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        .container {
+            display: flex;
+            flex: 1;
+            margin-top: 60px; /* Space for navbar */
+            padding-right: 20%; /* Space for right panel */
+            width: 100%;
+        }
+
+        .left-menu {
+            width: 20%;
+            background-color: #d1c7bd;
+            padding: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .left-menu.collapsed {
+            transform: translateX(-100%);
+        }
+
+        .main-content {
+            width: 80%; /* Take up the remaining space */
+            padding: 10px;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .right-panel {
+            position: fixed;
+            top: 60px; /* Below the navbar */
+            right: 0;
+            width: 20%;
+            height: calc(100% - 60px); /* Full height minus navbar */
+            background-color: #d1c7bd;
+            padding: 10px;
+            overflow-y: auto;
+            z-index: 100;
+        }
+
+        .footer {
+            background-color: #a48374;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+            margin-top: auto; /* Push footer to the bottom */
+        }
+
+        .collapse-btn {
+            background-color: #f1ede6;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .left-menu {
+                position: absolute;
+                height: 100%;
+                left: 0;
+                top: 60px;
+                width: 200px;
+                transform: translateX(-100%);
+            }
+
+            .left-menu.active {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                width: 100%; /* Full width on mobile */
+                margin-right: 0;
+            }
+
+            .right-panel {
+                position: relative;
+                width: 100%; /* Full width on small screens */
+                height: auto;
+                top: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <button class="collapse-btn" onclick="toggleMenu()">☰ Menu</button>
+        <span style="margin-left: 10px;"></span>
+    </div>
+    <div class="container">
+        <div class="left-menu" id="leftMenu">
+            <h3>Menu</h3>
+            <ul>
+                <li>Name</li>
+                <li>About</li>
+                <li>Projects</li>
+                <li>Contact</li>
+            </ul>
+        </div>
+        <div class="main-content">
+            <h1>Welcome to This Website</h1>
+            <p>I am Drashti Gajra, a third-year B.Tech student studying at Shah and Anchor Kuttchi Engineering College.</p>
+            <p>This is my submission for the internship. I am a very keen learner.</p>
+            <p>I have done one web development internship previously.</p>
+            <p>My hobbies are reading, dancing, music, and running.</p>
+        </div>
+    </div>
+    <div class="right-panel">
+        <h3>Announcements</h3>
+        <p>I hope you like my work!</p>
+        <p>I look forward to working with you!</p>
+    </div>
+    <div class="footer">Footer</div>
+
+    <script>
+        function toggleMenu() {
+            const leftMenu = document.getElementById('leftMenu');
+            leftMenu.classList.toggle('collapsed');
+        }
+
+        function adjustPageSize() {
+            const width = window.innerWidth;
+            let scale = 1;
+            if (width > 992 && width <= 1600) {
+                scale = 0.9;
+            } else if (width > 700 && width <= 767) {
+                scale = 0.8;
+            } else if (width > 600 && width <= 700) {
+                scale = 0.75;
+            } else if (width <= 600) {
+                scale = 0.5;
+            }
+            document.body.style.transform = `scale(${scale})`;
+            document.body.style.transformOrigin = 'top left';
+        }
+
+        window.addEventListener('resize', adjustPageSize);
+        window.addEventListener('load', adjustPageSize);
+    </script>
+</body>
+</html>
